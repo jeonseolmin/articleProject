@@ -206,18 +206,20 @@ public class ArticleDAO implements CrudInterface {
     }
 
     @Override
-    public void deleteComment(Long deleteCommentId) {
+    public boolean deleteComment(Long deleteCommentId) {
+        int result = 0;
         Connection connection = DBConn.getConnection();
         PreparedStatement preparedStatement = null;
         try{
             String sql = "DELETE FROM comments WHERE comment_id=?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1,deleteCommentId);
-            int result = preparedStatement.executeUpdate();
+           result = preparedStatement.executeUpdate();
             System.out.println("삭제된 행 수 "+result);
             preparedStatement.close();
         }catch (Exception e){
             System.out.println("DeleteComment 오류"+e.getMessage());
         }
+        return result == 0 ? false : true;
     }
 }

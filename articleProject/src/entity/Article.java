@@ -46,14 +46,21 @@ public class Article extends CommonField {
     public List<Comment> getCommentList() {
         return commentList;
     }
+
+
     //메서드
+    //댓글 추가
     public void addComments(Comment comment){
-        //댓글 추가
+
         commentList.add(comment);
     }
+    //댓글 목록 일괄 설정
     public void setCommentList(List<Comment> commentList){
-        //댓글 목록 일괄 설정
+
         this.commentList = new ArrayList<Comment>(commentList);
     }
 
+    public boolean removeComment(Long deleteCommentId) {
+        return commentList.removeIf(comment -> comment.getCommentId().equals(deleteCommentId));
+    }
 }

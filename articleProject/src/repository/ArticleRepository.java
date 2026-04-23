@@ -34,20 +34,15 @@ public class ArticleRepository implements CrudInterface {
 
     @Override
     public boolean delete(Long id) {
-        for (Article article : articleList){
-            if(article.getId().equals(id)){
-                articleList.remove((article));
-                return true;
-            }
-        }
-        return false;
+        return articleList.removeIf(article -> article.getId().equals(id));
     }
 
     @Override
     public void update(Article article) {
-        for (Article a : articleList){
-            if(a.getId().equals(article.getId())){
-               articleList.set(a.getId().intValue()-1,article);
+        for (int i = 0; i < articleList.size(); i++){
+            if(articleList.get(i).getId().equals(article.getId())){
+                articleList.set(i,article);
+                return;
             }
         }
     }
@@ -75,15 +70,12 @@ public class ArticleRepository implements CrudInterface {
     }
 
     @Override
-    public void deleteComment(Long deleteCommentId) {
-        Article article = detail(deleteCommentId);
-        if (article !=null){
-            for (Comment deletedComment : article.getCommentList()){
-                if (deletedComment.getCommentId().equals(deleteCommentId)){
-                    article.getCommentList().removeIf(c-> c.getCommentId().equals(deleteCommentId));
-                    return;
-                }
+    public boolean deleteComment(Long deleteCommentId) {
+        for (Article article : articleList) {
+            if (article.removeComment(deleteCommentId)) {
+                return true;
             }
         }
+        return false;
     }
 }
