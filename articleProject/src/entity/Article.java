@@ -47,7 +47,6 @@ public class Article extends CommonField {
         return commentList;
     }
 
-
     //메서드
     //댓글 추가
     public void addComments(Comment comment){

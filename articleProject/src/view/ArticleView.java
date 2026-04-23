@@ -3,7 +3,6 @@ package view;
 import dto.ArticleDto;
 import dto.CommentDto;
 import entity.Article;
-import entity.Comment;
 import repository.ArticleRepository;
 import service.ArticleService;
 import service.CommentService;
@@ -69,7 +68,7 @@ public class ArticleView {
         System.out.println("확인할 게시글의 아이디를 입력해주세요 :");
         Long id = sc.nextLong();
         sc.nextLine();
-        Article article = articleService.detail(id);
+        ArticleDto article = articleService.detail(id);
         if(article == null){
             System.out.println("해당 게시글이 없습니다");
             return;
@@ -106,10 +105,10 @@ public class ArticleView {
         String title = sc.nextLine();
         System.out.println("수정할 내용을 입력해주세요: ");
         String content = sc.nextLine();
-        Article article = articleService.detail(id);
+        ArticleDto article = articleService.detail(id);
         articleService.update(new ArticleDto(article.getId(),article.getName(), title, content,LocalDateTime.now()));
     }
-    private void commentC(Article article){
+    private void commentC(ArticleDto article){
         String name, content;
         System.out.println(" 댓글 등록자 이름: ");
         name = sc.next();
@@ -118,7 +117,7 @@ public class ArticleView {
         CommentDto dto = new CommentDto(null,article.getId(),name,content);
         commentService.commentAdd(dto);
     }
-    private  void commentU(Article article){
+    private  void commentU(ArticleDto article){
         Long searchId;
         String updateContent;
         System.out.println("수정할 댓글의 번호를 입력해주세요: ");
@@ -133,14 +132,14 @@ public class ArticleView {
         System.out.println("삭제할 댓글의 번호를 입력해주세요 :");
         commentService.commentDelete(sc.nextLong());
     }
-    private void commentCRUD(Article article){
+    private void commentCRUD(ArticleDto article){
         int choice;
         System.out.println("\uD83C\uDFB6\uD83C\uDFB6  댓글 리스트  \uD83C\uDFB6\uD83C\uDFB6");
-        if (article.getCommentList().isEmpty()){
+        if (article.getCommentlist().isEmpty()){
             System.out.println("해당 게시판에는 댓글이 없습니다.");
         }else{
-            for (Comment comment : article.getCommentList()){
-                System.out.println("\uD83C\uDFF7\uFE0F"+comment.getCommentId()+"\t"+comment.getName()+"\t"+comment.getContent());
+            for (CommentDto comment : article.getCommentlist()){
+                System.out.println("\uD83C\uDFF7\uFE0F"+comment.commentId()+"\t"+comment.name()+"\t"+comment.content());
             }
         }
         while (true){

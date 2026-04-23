@@ -153,7 +153,7 @@ public class ArticleDAO implements CrudInterface {
     }
 
     @Override
-    public void update(Article article) {
+    public boolean update(Article article) {
         Connection connection = DBConn.getConnection();
         PreparedStatement preparedStatement = null;
         try {
@@ -167,9 +167,11 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement.setLong(6,article.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            return true;
         }catch (Exception e){
             System.out.println("update 오류: " + e.getMessage());
         }
+        return false;
     }
 
     @Override
