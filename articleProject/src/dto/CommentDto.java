@@ -1,5 +1,5 @@
-package articleProject.dto;
-import articleProject.entity.Comment;
+package dto;
+import entity.Comment;
 
 public record CommentDto(
         Long commentId,

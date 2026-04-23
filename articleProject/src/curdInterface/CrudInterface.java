@@ -1,7 +1,7 @@
-package articleProject.curdInterface;
+package curdInterface;
 
-import articleProject.entity.Article;
-import articleProject.entity.Comment;
+import entity.Article;
+import entity.Comment;
 
 import java.util.List;
 

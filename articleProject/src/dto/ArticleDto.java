@@ -1,7 +1,7 @@
-package articleProject.dto;
-import articleProject.entity.Article;
-import articleProject.entity.Comment;
-import articleProject.entity.CommonField;
+package dto;
+import entity.Article;
+import entity.Comment;
+import entity.CommonField;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

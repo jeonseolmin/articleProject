@@ -1,12 +1,12 @@
-package articleProject.view;
+package view;
 
-import articleProject.dto.ArticleDto;
-import articleProject.dto.CommentDto;
-import articleProject.entity.Article;
-import articleProject.entity.Comment;
-import articleProject.repository.ArticleRepository;
-import articleProject.service.ArticleService;
-import articleProject.service.CommentService;
+import dto.ArticleDto;
+import dto.CommentDto;
+import entity.Article;
+import entity.Comment;
+import repository.ArticleRepository;
+import service.ArticleService;
+import service.CommentService;
 
 
 import java.time.LocalDateTime;

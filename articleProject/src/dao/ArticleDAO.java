@@ -1,10 +1,9 @@
-package articleProject.dao;
+package dao;
 
-import articleProject.curdInterface.CrudInterface;
-import articleProject.entity.Article;
-import articleProject.entity.Comment;
-import articleProject.db.DBConn;
-
+import curdInterface.CrudInterface;
+import entity.Article;
+import entity.Comment;
+import db.DBConn;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

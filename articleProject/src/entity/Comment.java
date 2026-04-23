@@ -1,4 +1,4 @@
-package articleProject.entity;
+package entity;
 
 public class Comment {
     Long commentId, articleId;

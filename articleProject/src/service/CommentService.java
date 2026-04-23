@@ -1,9 +1,8 @@
-package articleProject.service;
+package service;
+import curdInterface.CrudInterface;
+import dao.ArticleDAO;
+import dto.CommentDto;
 
-import articleProject.curdInterface.CrudInterface;
-import articleProject.dao.ArticleDAO;
-import articleProject.dto.CommentDto;
-import articleProject.repository.ArticleRepository;
 
 public class CommentService  {
      CrudInterface dao = new ArticleDAO();

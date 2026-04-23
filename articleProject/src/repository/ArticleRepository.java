@@ -1,11 +1,11 @@
-package articleProject.repository;
+package repository;
 
-import articleProject.curdInterface.CrudInterface;
-import articleProject.entity.Article;
-import articleProject.entity.Comment;
-
+import curdInterface.CrudInterface;
+import entity.Article;
+import entity.Comment;
 import java.util.ArrayList;
 import java.util.List;
+
 //게시글(Article) 데이터를 저장·조회·수정·삭제(CRUD)하는 저장소 역할
 public class ArticleRepository implements CrudInterface {
    public static Long articleId = 1L;
