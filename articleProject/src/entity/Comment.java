@@ -5,12 +5,6 @@ public class Comment {
     String name,content;
 
     //생성자
-    public Comment() {
-        this.commentId = null;
-        this.articleId = null;
-        String name = null;
-        String content = null;
-    }
     public Comment(Long commentId, Long articleId, String name, String content) {
         this.commentId = commentId;
         this.articleId = articleId;
@@ -28,15 +22,9 @@ public class Comment {
     public Long getArticleId() {
         return articleId;
     }
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
     //Name
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     //Content
     public String getContent() {
