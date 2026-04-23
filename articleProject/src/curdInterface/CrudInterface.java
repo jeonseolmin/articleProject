@@ -11,7 +11,7 @@ public interface CrudInterface {
     void newArticle(Article article);
     Article detail(Long id);
     boolean delete(Long id);
-    void update(Article article);
+    boolean update(Article article);
 
     //댓글
     void insertComment(Comment comment);

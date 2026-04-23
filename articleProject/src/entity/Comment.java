@@ -5,6 +5,12 @@ public class Comment {
     String name,content;
 
     //생성자
+    public Comment() {
+        this.commentId = null;
+        this.articleId = null;
+        String name = null;
+        String content = null;
+    }
     public Comment(Long commentId, Long articleId, String name, String content) {
         this.commentId = commentId;
         this.articleId = articleId;

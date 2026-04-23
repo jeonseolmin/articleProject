@@ -38,13 +38,14 @@ public class ArticleRepository implements CrudInterface {
     }
 
     @Override
-    public void update(Article article) {
+    public boolean update(Article article) {
         for (int i = 0; i < articleList.size(); i++){
             if(articleList.get(i).getId().equals(article.getId())){
                 articleList.set(i,article);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     @Override
