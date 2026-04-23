@@ -2,7 +2,6 @@ package view;
 
 import dto.ArticleDto;
 import dto.CommentDto;
-import entity.Article;
 import repository.ArticleRepository;
 import service.ArticleService;
 import service.CommentService;
@@ -115,10 +114,10 @@ public class ArticleView {
         System.out.println(" 댓글 내용: ");
         content = sc.next();
         CommentDto dto = new CommentDto(null,article.getId(),name,content);
-        commentService.commentAdd(dto);
+        commentService.addComment(dto);
     }
     private  void commentU(ArticleDto article){
-        Long searchId;
+        long searchId;
         String updateContent;
         System.out.println("수정할 댓글의 번호를 입력해주세요: ");
         searchId = sc.nextLong();
@@ -126,11 +125,20 @@ public class ArticleView {
         System.out.println("댓글을 입력해주세요: ");
         updateContent = sc.nextLine();
         CommentDto commentDto = new CommentDto(searchId,article.getId(),"",updateContent);
-        commentService.commentUpdate(commentDto);
+        if(commentService.updateComment(commentDto)){
+            System.out.println("수정 성공");
+        }else {
+            System.out.println("수정 실패");
+        }
+
     }
     private void commentD(){
         System.out.println("삭제할 댓글의 번호를 입력해주세요 :");
-        commentService.commentDelete(sc.nextLong());
+        if(commentService.deleteComment(sc.nextLong())){
+            System.out.println("삭제 성공");
+        }else {
+            System.out.println("삭제 실패");
+        }
     }
     private void commentCRUD(ArticleDto article){
         int choice;

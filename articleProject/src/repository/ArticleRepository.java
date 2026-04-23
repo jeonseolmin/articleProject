@@ -58,16 +58,17 @@ public class ArticleRepository implements CrudInterface {
     }
 
     @Override
-    public void updateComment(Comment comment) {
+    public boolean updateComment(Comment comment) {
         Article article = detail(comment.getArticleId());
         if (article !=null){
             for (Comment savedComment : article.getCommentList()){
                 if (savedComment.getCommentId().equals(comment.getCommentId())){
                     savedComment.setContent(comment.getContent());
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override
