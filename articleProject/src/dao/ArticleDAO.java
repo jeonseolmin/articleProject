@@ -83,7 +83,7 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         }catch(Exception e){
-            System.out.println("INSERT  오류"+e.getMessage());
+            System.out.println("newArticle  오류"+e.getMessage());
         }
     }
     @Override
