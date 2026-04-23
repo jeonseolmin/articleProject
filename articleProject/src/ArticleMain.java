@@ -1,10 +1,5 @@
-package articleProject;
-
-import articleProject.view.ArticleView;
-import articleProject.db.DBConn;
-
+import view.ArticleView;
 import java.util.Scanner;
-
 public class ArticleMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

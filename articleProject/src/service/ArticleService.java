@@ -1,14 +1,8 @@
-package articleProject.service;
-
-import Ch_13.CheeseHamburger;
-import Ch_13.ChickenBurger;
-import Ch_13.Hamburger;
-import articleProject.curdInterface.CrudInterface;
-import articleProject.dao.ArticleDAO;
-import articleProject.dto.ArticleDto;
-import articleProject.entity.Article;
-import articleProject.repository.ArticleRepository;
-
+package service;
+import curdInterface.CrudInterface;
+import dao.ArticleDAO;
+import dto.ArticleDto;
+import entity.Article;
 import java.time.LocalDateTime;
 import java.util.List;
 
