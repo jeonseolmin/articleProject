@@ -1,6 +1,6 @@
 package repository;
 
-import curdInterface.CrudInterface;
+import crudInterface.CrudInterface;
 import entity.Article;
 import entity.Comment;
 import java.util.ArrayList;

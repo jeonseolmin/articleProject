@@ -1,11 +1,10 @@
 package dao;
 
-import curdInterface.CrudInterface;
+import crudInterface.CrudInterface;
 import entity.Article;
 import entity.Comment;
 import db.DBConn;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,56 +78,60 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement.setString(1,article.getName());
             preparedStatement.setString(2,article.getTitle());
             preparedStatement.setString(3,article.getContent());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(article.getInsertedDate()));
             preparedStatement.setTimestamp(5, null);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         }catch(Exception e){
-            System.out.println("INSERT  오류"+e.getMessage());
+            System.out.println("newArticle  오류"+e.getMessage());
         }
     }
     @Override
     public Article detail(Long id) {
         Article article = null;
         Connection connection = DBConn.getConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        PreparedStatement articlePs = null;
+        PreparedStatement commentPs = null;
+        ResultSet articleRs = null;
+        ResultSet commentRs = null;
         String sql = "SELECT * FROM article WHERE id=?";
         try{
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1,id);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            articlePs = connection.prepareStatement(sql);
+            articlePs.setLong(1,id);
+            articleRs = articlePs.executeQuery();
+            if(articleRs.next()){
                 article = new Article(
-                        resultSet.getLong("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("title"),
-                        resultSet.getString("content"),
+                        articleRs.getLong("id"),
+                        articleRs.getString("name"),
+                        articleRs.getString("title"),
+                        articleRs.getString("content"),
                         new ArrayList<>()
                 );
-                Timestamp insertedTs = resultSet.getTimestamp("inserted_date");
-                Timestamp  updatedTs = resultSet.getTimestamp("updated_date");
+                Timestamp insertedTs = articleRs.getTimestamp("inserted_date");
+                Timestamp  updatedTs = articleRs.getTimestamp("updated_date");
                 article.setInsertedDate(insertedTs==null ? null:insertedTs.toLocalDateTime());
                 article.setUpdatedDate(updatedTs==null ? null:updatedTs.toLocalDateTime());
             }else {return null;}
             sql = "SELECT * FROM comments WHERE article_id=?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1,article.getId());
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            commentPs = connection.prepareStatement(sql);
+            commentPs.setLong(1,article.getId());
+            commentRs = commentPs.executeQuery();
+            while (commentRs.next()){
                 Comment comment = new Comment(
-                        resultSet.getLong("comment_id"),
-                        resultSet.getLong("article_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("content")
+                        commentRs.getLong("comment_id"),
+                        commentRs.getLong("article_id"),
+                        commentRs.getString("name"),
+                        commentRs.getString("content")
 
                 );
                 article.getCommentList().add(comment);
             }
-            resultSet.close();
-            preparedStatement.close();
+            articleRs.close();
+            commentRs.close();
+            articlePs.close();
+            commentPs.close();
         }catch(Exception e){
-            System.out.println("INSERT  오류"+e.getMessage());
+            System.out.println("detail  오류"+e.getMessage());
         }
         return article;
     }
@@ -145,11 +148,10 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement.setLong(1,id);
             result = preparedStatement.executeUpdate();
             preparedStatement.close();
-
         }catch (Exception e){
             System.out.println("delete 오류: " + e.getMessage());
         }
-        return result > 0 ? true : false;
+        return result > 0;
     }
 
     @Override
@@ -165,9 +167,9 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement.setTimestamp(4,Timestamp.valueOf(article.getInsertedDate()));
             preparedStatement.setTimestamp(5,Timestamp.valueOf(article.getUpdatedDate()));
             preparedStatement.setLong(6,article.getId());
-            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
             preparedStatement.close();
-            return true;
+            return result > 0;
         }catch (Exception e){
             System.out.println("update 오류: " + e.getMessage());
         }
@@ -193,7 +195,7 @@ public class ArticleDAO implements CrudInterface {
 
     @Override
     public boolean updateComment(Comment comment) {
-        boolean result = false;
+
         Connection connection = DBConn.getConnection();
         PreparedStatement preparedStatement = null;
         try{
@@ -201,13 +203,13 @@ public class ArticleDAO implements CrudInterface {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,comment.getContent());
             preparedStatement.setLong(2,comment.getCommentId());
-            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
             preparedStatement.close();
-            result = true;
+            return result>0;
         }catch (Exception e){
             System.out.println("UpdateComment 오류"+e.getMessage());
         }
-        return result;
+        return false;
     }
 
     @Override
@@ -219,12 +221,12 @@ public class ArticleDAO implements CrudInterface {
             String sql = "DELETE FROM comments WHERE comment_id=?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1,deleteCommentId);
-           result = preparedStatement.executeUpdate();
+            result = preparedStatement.executeUpdate();
             System.out.println("삭제된 행 수 "+result);
             preparedStatement.close();
         }catch (Exception e){
             System.out.println("DeleteComment 오류"+e.getMessage());
         }
-        return result == 0 ? false : true;
+        return result > 0;
     }
 }
