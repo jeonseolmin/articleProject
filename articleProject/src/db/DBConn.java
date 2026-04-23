@@ -10,7 +10,7 @@ public class DBConn {
         if (dbConn == null) {  // 없을 때만 새로 연결
             try {
                 String dbDriver   = "com.mysql.cj.jdbc.Driver";
-                String dbUrl      = "jdbc:mysql://localhost:3306/vmachine";
+                String dbUrl      = "jdbc:mysql://localhost:3306/article_db";
                 String dbUser     = "root";      // 본인 계정으로 변경
                 String dbPassword = "1111";      // 본인 비밀번호로 변경
 
