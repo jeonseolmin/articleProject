@@ -1,5 +1,5 @@
 package service;
-import curdInterface.CrudInterface;
+import crudInterface.CrudInterface;
 import dao.ArticleDAO;
 import dto.CommentDto;
 

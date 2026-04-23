@@ -1,4 +1,4 @@
-package curdInterface;
+package crudInterface;
 
 import entity.Article;
 import entity.Comment;
